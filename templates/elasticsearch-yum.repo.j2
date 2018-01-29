@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+[{{ elasticsearch_yumrepo_name }}]
+name=Elasticsearch repository
+baseurl={{  elasticsearch_yumrepo_url }}
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled={{ '1' if elasticsearch_yumrepo_enabled else '0' }}
+autorefresh=1
+type=rpm-md

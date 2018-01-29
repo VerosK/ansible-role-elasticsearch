@@ -1,0 +1,53 @@
+elasticsearch_series: 6.x
+
+# should we manage elasticsearch yumrepo?
+elasticearch_manage_yumrepo: True
+elasticsearch_yumrepo_name: elasticsearch-{{ elasticsearch_series }}
+elasticsearch_yumrepo_url: https://artifacts.elastic.co/packages/{{ elasticsearch_series }}/yum
+elasticsearch_yumrepo_enabled: 1
+
+# name of Elasticsearch package
+elasticsearch_yum_package: elasticsearch-6.1.1
+
+# should we do config backups?
+elasticsearch_do_backups: true
+
+## Add your config here
+# elastic cluster name
+elasticsearch_cluster_name: 'Sleeping Elk'
+elasticsearch_node_name: '{{ ansible_hostname }}'
+
+# node attributes
+elasticsearch_node_attrs:
+      ansible_managed: True
+      managing_machine: fubar
+
+# path config
+# Path to directory where to store the data (separate multiple locations by comma):
+elasticsearch_data_path: /var/lib/elasticsearch
+elasticsearch_logs_path: /var/log/elasticsearch
+
+elasticsearch_address: '127.0.0.1'
+elasticsearch_http_port: 9200
+#elasticsearch_address: 0.0.0.0
+
+elasticsearch_extra_config: |
+      # Lock memory on startup?
+      #bootstrap.memory_lock: true
+
+# service config
+elasticsearch_service_name: elasticsearch
+elasticsearch_service_state: started
+elasticsearch_service_enabled: true
+
+
+## TBD
+#elasticsearch_template_settings:
+#        number_of_shards: 1
+#        number_of_replicas: 0
+# curl -XPUT 'localhost:9200/_template/all' -H 'Content-Type: application/json' \
+#    -d '{ "template": "*", "settings": {"number_of_shards": 1, "number_of_replicas": 0 }}
+
+#curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+
+#curl -XPUT 'localhost:9200/.monitoring-*/_settings' -H 'Content-Type: application/json' -d '{ "number_of_replicas": 0 }'

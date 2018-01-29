@@ -1,0 +1,21 @@
+- name: Install ElasticSearch (RedHat)
+  include: install-redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- fail:
+    msg: Only RedHat is currently supported
+  when: ansible_os_family not in ['RedHat']
+
+- name: "Setup elasticsearch.yml"
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    backup: '{{ elasticsearch_do_backups }}'
+  notify:
+    - restart elasticsearch
+
+- name: Setup elasticsearch service
+  service:
+    name: '{{ elasticsearch_service_name }}'
+    state: '{{ elasticsearch_service_state }}'
+    enabled: '{{ elasticsearch_service_enabled }}'

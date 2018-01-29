@@ -1,0 +1,12 @@
+- name: Create ES yumrepo
+  template:
+      src: elasticsearch-yum.repo.j2
+      dest: /etc/yum.repos.d/{{ elasticsearch_yumrepo_name }}.repo
+      owner: root
+      backup: elasticsearch_do_backups
+  when: elasticearch_manage_yumrepo
+
+- name: Install ES RPM package
+  yum:
+    name: '{{ elasticsearch_yum_package }}'
+    state: present

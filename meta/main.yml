@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Veros Kaplan
+  description: Just another ES role
+
+  license: BSD
+
+  min_ansible_version: 2.2
+
+  # If this a Container Enabled role, provide the minimum Ansible Container version.
+  # min_ansible_container_version:
+
+  platforms:
+     - name: RHEL
+       version: [ 7 ]
+
+  galaxy_tags: []
+
+dependencies: 
+  - geerlingguy.java

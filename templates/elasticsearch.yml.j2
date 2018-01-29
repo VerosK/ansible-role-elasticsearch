@@ -1,0 +1,39 @@
+# {{ ansible_managed }}
+
+cluster.name: {{ elasticsearch_cluster_name }}
+
+#------------------------------------ Node ------------------------------------
+node.name: '{{ elasticsearch_node_name }}'
+
+{% for k,v in elasticsearch_node_attrs.items() %}
+node.attr.{{ k }}: {{ v }}
+{% endfor %}
+#
+# ----------------------------------- Paths ------------------------------------
+#
+#
+path.data: '{{ elasticsearch_data_path }}'
+path.logs: '{{ elasticsearch_logs_path }}'
+#
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+network.host: '{{ elasticsearch_address }}'
+http.port: {{ elasticsearch_http_port }}
+#
+# For more information, consult the network module documentation.
+#
+# ---------------------------------- Extra -----------------------------------
+{% if elasticsearch_extra_config is defined %}
+{{ elasticsearch_extra_config }}
+#   ____________________________________
+#  / Ansible takes care of this config, \
+#  \ don't touch manually, please       /
+#   ------------------------------------
+#         \   ^__^
+#          \  (oo)\_______
+#             (__)\       )\/\
+#                  ||----w |
+#                  ||     ||
+{% endif %}
