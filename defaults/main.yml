@@ -7,7 +7,7 @@ elasticsearch_yumrepo_url: https://artifacts.elastic.co/packages/{{ elasticsearc
 elasticsearch_yumrepo_enabled: 1
 
 # name of Elasticsearch package
-elasticsearch_yum_package: elasticsearch-6.1.1
+elasticsearch_yum_package: elasticsearch
 
 # should we do config backups?
 elasticsearch_do_backups: true
@@ -40,6 +40,8 @@ elasticsearch_service_name: elasticsearch
 elasticsearch_service_state: started
 elasticsearch_service_enabled: true
 
+
+elasticsearch_java_home: /bin
 
 ## TBD
 #elasticsearch_template_settings:
