@@ -6,6 +6,16 @@
     msg: Only RedHat is currently supported
   when: ansible_os_family not in ['RedHat']
 
+
+- name: Create elasticsearch snapshot directories
+  file:
+    path: item
+    state: directory
+    user: '{{ elasticsearch_user }}'
+    group: '{{ elasticsearch_group }}'
+  when: elasticsearch_create_snapshot_dirs and item.startswith('/')
+  with_items: elasticsearch_snapshot_paths
+
 - name: "Setup elasticsearch.yml"
   template:
     src: elasticsearch.yml.j2

@@ -1,3 +1,4 @@
+# which elasticsearch
 elasticsearch_series: 6.x
 
 # should we manage elasticsearch yumrepo?
@@ -26,14 +27,26 @@ elasticsearch_node_attrs:
 # Path to directory where to store the data (separate multiple locations by comma):
 elasticsearch_data_path: /var/lib/elasticsearch
 elasticsearch_logs_path: /var/log/elasticsearch
+# Where the snapshots can be created
+elasticsearch_snapshot_paths:
+    - /var/lib/elasticsearch/snapshots
+# should we create elasticsearch paths?
+elasticsearch_create_snapshot_dirs: true
+
 
 elasticsearch_address: '127.0.0.1'
 elasticsearch_http_port: 9200
-#elasticsearch_address: 0.0.0.0
 
+
+# These lines are going to be added to end of elasticsearch config
 elasticsearch_extra_config: |
       # Lock memory on startup?
       #bootstrap.memory_lock: true
+
+# users to
+elasticsearch_user: elasticsearch
+elasticsearch_group: elasticsearch
+
 
 # service config
 elasticsearch_service_name: elasticsearch

@@ -15,6 +15,10 @@ node.attr.{{ k }}: {{ v }}
 path.data: '{{ elasticsearch_data_path }}'
 path.logs: '{{ elasticsearch_logs_path }}'
 #
+{% if elasticsearch_snapshot_paths|default(None) %}
+{{ {"path.repo": elasticsearch_snapshot_paths}|to_nice_yaml }}
+{% endif %}
+#
 # ---------------------------------- Network -----------------------------------
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
