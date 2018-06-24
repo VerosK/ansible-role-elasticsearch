@@ -53,6 +53,7 @@ elasticsearch_service_name: elasticsearch
 elasticsearch_service_state: started
 elasticsearch_service_enabled: true
 
+elasticssearch_keystore_create: true
 
 elasticsearch_java_home: /bin
 

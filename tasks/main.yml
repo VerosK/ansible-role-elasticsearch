@@ -24,6 +24,12 @@
   notify:
     - restart elasticsearch
 
+- name: Create keystore
+  shell: /usr/share/elasticsearch/bin/elasticsearch-keystore create
+  args:
+    creates: /etc/elasticsearch/elasticsearch.keystore
+  when: elasticssearch_keystore_create
+
 - name: Setup elasticsearch service
   service:
     name: '{{ elasticsearch_service_name }}'
