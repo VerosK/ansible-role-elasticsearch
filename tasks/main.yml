@@ -6,12 +6,19 @@
     msg: Only RedHat is currently supported
   when: ansible_os_family not in ['RedHat']
 
+- name: Make sure data directory exists
+  file:
+    path: '{{ elasticsearch_data_path }}'
+    state: directory
+    owner: '{{ elasticsearch_user }}'
+    group: '{{ elasticsearch_group }}'
+
 
 - name: Create elasticsearch snapshot directories
   file:
-    path: item
+    path: '{{ item }}'
     state: directory
-    user: '{{ elasticsearch_user }}'
+    owner: '{{ elasticsearch_user }}'
     group: '{{ elasticsearch_group }}'
   when: elasticsearch_create_snapshot_dirs and item.startswith('/')
   with_items: elasticsearch_snapshot_paths
@@ -30,8 +37,15 @@
     creates: /etc/elasticsearch/elasticsearch.keystore
   when: elasticssearch_keystore_create
 
+- meta: flush_handlers
+
 - name: Setup elasticsearch service
   service:
     name: '{{ elasticsearch_service_name }}'
     state: '{{ elasticsearch_service_state }}'
     enabled: '{{ elasticsearch_service_enabled }}'
+
+- wait_for:
+    port: '{{ elasticsearch_http_port }}'
+    timeout: '{{ elasticsearch_wait_timeout }}'
+  when: elasticsearch_wait_timeout

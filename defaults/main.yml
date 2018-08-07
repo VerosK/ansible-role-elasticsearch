@@ -43,10 +43,14 @@ elasticsearch_extra_config: |
       # Lock memory on startup?
       #bootstrap.memory_lock: true
 
-# users to
+# users to run as
 elasticsearch_user: elasticsearch
 elasticsearch_group: elasticsearch
 
+# Wait 30 seconds for elasticsearch to start
+# set to 0 to skip waiting
+# set to 1 to make sure elastic is up
+elasticsearch_wait_timeout: 30
 
 # service config
 elasticsearch_service_name: elasticsearch
@@ -56,6 +60,7 @@ elasticsearch_service_enabled: true
 elasticssearch_keystore_create: true
 
 elasticsearch_java_home: /bin
+
 
 ## TBD
 #elasticsearch_template_settings:
